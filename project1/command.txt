@@ -1,0 +1,9 @@
+cd $ONOS_ROOT
+bazel run onos-local -- clean debug
+
+sudo mn --topo=linear,3 --controller=remote,127.0.0.1:6653 --switch=ovs,protocols=OpenFlow14
+
+sudo mn --custom=project1_part2_311552013.py --topo=topo_part2_311552013 --controller=remote,ip=127.0.0.1:6653 --switch=ovs,protocols=OpenFlow14
+sudo mn --custom=project1_part3_311552013.py --topo=topo_part3_311552013 --controller=remote,ip=127.0.0.1:6653 --switch=ovs,protocols=OpenFlow14
+
+sudo mn -c
