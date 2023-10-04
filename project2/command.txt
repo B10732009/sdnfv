@@ -6,5 +6,10 @@ sudo mn -c
 
 curl -u onos:rocks -X POST -H 'Content-Type: application/json' -d @project2/flow1.json 'http://localhost:8181/onos/v1/flows/of:0000000000000001'
 curl -u onos:rocks -X POST -H 'Content-Type: application/json' -d @project2/part2/flows_s1-1_311552013.json 'http://localhost:8181/onos/v1/flows/of:0000000000000001'
-curl -u onos:rocks -X POST -H 'Content-Type: application/json' -d @project2/part2/flows_s1-2_311552013 'http://localhost:8181/onos/v1/flows/of:0000000000000001'
-curl -u onos:rocks -X POST -H 'Content-Type: application/json' -d @project2/part2/flows_s1-3_311552013 'http://localhost:8181/onos/v1/flows/of:0000000000000001'
+curl -u onos:rocks -X POST -H 'Content-Type: application/json' -d @project2/part2/flows_s1-2_311552013.json 'http://localhost:8181/onos/v1/flows/of:0000000000000001'
+curl -u onos:rocks -X POST -H 'Content-Type: application/json' -d @project2/part2/flows_s1-3_311552013.json 'http://localhost:8181/onos/v1/flows/of:0000000000000001'
+
+sudo mn --custom=project2/part3/topo_311552013.py --topo=topo_311552013 --controller=remote,ip=127.0.0.1:6653 --switch=ovs,protocols=OpenFlow14
+curl -u onos:rocks -X POST -H 'Content-Type: application/json' -d @project2/part3/flows_s1-1_311552013.json 'http://localhost:8181/onos/v1/flows/of:0000000000000001'
+curl -u onos:rocks -X POST -H 'Content-Type: application/json' -d @project2/part3/flows_s2-1_311552013.json 'http://localhost:8181/onos/v1/flows/of:0000000000000002'
+curl -u onos:rocks -X POST -H 'Content-Type: application/json' -d @project2/part3/flows_s3-1_311552013.json 'http://localhost:8181/onos/v1/flows/of:0000000000000003'
