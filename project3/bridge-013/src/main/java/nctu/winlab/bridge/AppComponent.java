@@ -55,8 +55,8 @@ import java.util.Map;
 /**
  * Skeletal ONOS application component.
  */
-@Component(immediate = true) 
-public class AppComponent { 
+@Component(immediate = true)
+public class AppComponent {
 
     private Logger log;
     private EventuallyConsistentMap<DeviceId, Map<MacAddress, PortNumber>> macAddressTable;
@@ -66,11 +66,11 @@ public class AppComponent {
     // to use services of ONOS
     @Reference(cardinality = ReferenceCardinality.MANDATORY)
     protected CoreService coreService;
-    
+
     // to trace the components
     @Reference(cardinality = ReferenceCardinality.MANDATORY)
     protected ComponentConfigService cfgService;
-    
+
     // to intercept and handle packets
     @Reference(cardinality = ReferenceCardinality.MANDATORY)
     protected PacketService packetService;
@@ -104,7 +104,7 @@ public class AppComponent {
 
         // initialize application ID
         appId = coreService.registerApplication("nctu.winlab.bridge");
-        
+
         // set criteria to intercept packets
         requestIntercepts();
         log.info(String.format("Started %s.", appId.toString()));
@@ -135,7 +135,7 @@ public class AppComponent {
         public void process(PacketContext context) {
             // check if the packet has been handled
             if (context.isHandled()) {
-		        return;
+                return;
             }
 
             InboundPacket packet = context.inPacket();
@@ -143,21 +143,20 @@ public class AppComponent {
             MacAddress dstMacAddress = packet.parsed().getDestinationMAC();
             DeviceId deviceId = packet.receivedFrom().deviceId();
             PortNumber inPortNumber = packet.receivedFrom().port();
-            
-            log.info(String.format("Add an entry to the port table of `%s`. MAC address: `%s` => Port: `%s`.", 
+
+            log.info(String.format("Add an entry to the port table of `%s`. MAC address: `%s` => Port: `%s`.",
                 deviceId.toString(), srcMacAddress.toString(), inPortNumber.toString()));
             packetIn(deviceId, srcMacAddress, inPortNumber);
-            
+
             Map<MacAddress, PortNumber> subMacAddressTable = macAddressTable.get(deviceId);
-            if(subMacAddressTable.containsKey(dstMacAddress)) {
-                log.info(String.format("MAC address `%s` is matched on `%s`. Install a flow rule.", 
+            if (subMacAddressTable.containsKey(dstMacAddress)) {
+                log.info(String.format("MAC address `%s` is matched on `%s`. Install a flow rule.",
                     dstMacAddress.toString(), deviceId.toString()));
                 PortNumber outPortNumber = subMacAddressTable.get(dstMacAddress);
                 packetOut(context, outPortNumber);
                 installFlowRule(context, outPortNumber);
-            }
-            else {
-                log.info(String.format("MAC address `%s` is missed on `%s`. Flood the packet.", 
+            } else {
+                log.info(String.format("MAC address `%s` is missed on `%s`. Flood the packet.",
                     dstMacAddress.toString(), deviceId.toString()));
                 packetOut(context, PortNumber.FLOOD);
             }
@@ -169,8 +168,7 @@ public class AppComponent {
         if (macAddressTable.containsKey(deviceId)) {
             Map<MacAddress, PortNumber> subMacAddressTable = macAddressTable.get(deviceId);
             subMacAddressTable.put(srcMacAddress, inPortNumber);
-        }
-        else { 
+        } else {
             Map<MacAddress, PortNumber> newSubMacAddressTable = new HashMap<MacAddress, PortNumber>();
             newSubMacAddressTable.put(srcMacAddress, inPortNumber);
             macAddressTable.put(deviceId, newSubMacAddressTable);

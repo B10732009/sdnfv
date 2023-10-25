@@ -9,7 +9,7 @@ CUSTOMIZED_TOPO_SCRIPT=project3_topo_311552013.py
 CUSTOMIZED_TOPO=topo_311552013
 
 install:
-	cd ${ARTIFACT_ID}; mvn clean install -DskipTests -Dcheckstyle.skip
+	cd ${ARTIFACT_ID}; mvn clean install -DskipTests
 	onos-app localhost install! ${ARTIFACT_ID}/target/${ARTIFACT_ID}-${VERSION}.oar
 
 uninstall:
