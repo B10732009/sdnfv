@@ -165,10 +165,10 @@ public class AppComponent {
                 .setOutput(portNumber)
                 .build();
 
-            OutboundPacket packet = new DefaultOutboundPacket(deviceId, trafficTreatment, 
+            OutboundPacket outPkt = new DefaultOutboundPacket(deviceId, trafficTreatment, 
                 ByteBuffer.wrap(ethPacket.serialize()));
 
-            packetService.emit(packet);
+            packetService.emit(outPkt);
         }
     }
 }
