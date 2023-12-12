@@ -124,9 +124,11 @@ services:
     cap_add:
       - NET_ADMIN
       - NET_BROADCAST
-    # networks:
-    #   R2h2br:
-    #     ipv4_address: 172.19.0.2
+    networks:
+      R3R4br:
+        ipv4_address: 172.21.0.2
+      R3R5br:
+        ipv4_address: 172.23.0.2
     volumes:
       - ./config/R3/zebra.conf:/etc/quagga/zebra.conf
       - ./config/R3/bgpd.conf:/etc/quagga/bgpd.conf
@@ -140,6 +142,8 @@ services:
       - NET_ADMIN
       - NET_BROADCAST
     networks:
+      R3R4br:
+        ipv4_address: 172.21.0.3
       R4h3br:
         ipv4_address: 172.22.0.2
     volumes:
@@ -155,6 +159,8 @@ services:
       - NET_ADMIN
       - NET_BROADCAST
     networks:
+      R3R5br:
+        ipv4_address: 172.23.0.3
       R5h4br:
         ipv4_address: 172.24.0.2
     volumes:
@@ -182,4 +188,15 @@ networks:
     ipam:
       config:
         - subnet: 172.24.0.0/16
+  R3R4br:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.21.0.0/16
+  R3R5br:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.23.0.0/16
+
   
