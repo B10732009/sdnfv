@@ -16,9 +16,10 @@ test:
 	sudo ovs-vsctl add-br mybridge1
 	sudo ovs-vsctl add-br mybridge2
 	sudo ovs-vsctl add-br mybridge3
-	sudo ovs-docker add-port mybridge1 eth1 R1 --ipaddress=172.20.0.2/24
-	sudo ovs-docker add-port mybridge2 eth1 R2 --ipaddress=172.20.0.3/24
-	sudo ovs-docker add-port mybridge3 eth1 R3 --ipaddress=172.20.0.4/24
+aaa:
+	sudo ovs-docker add-port mybridge1 veth0 R1 --ipaddress=172.20.0.2/24
+	sudo ovs-docker add-port mybridge2 veth0 R2 --ipaddress=172.20.0.3/24
+	sudo ovs-docker add-port mybridge3 veth0 R3 --ipaddress=172.20.0.4/24
 test2:
 	sudo ovs-vsctl del-br mybridge1
 	sudo ovs-vsctl del-br mybridge2
