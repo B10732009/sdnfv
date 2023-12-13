@@ -24,6 +24,6 @@ test:
 test2:
 	sudo ovs-vsctl del-br mybr
 test3:
-	docker exec -it R1 ping 172.20.0.4
+	docker exec -it h3 ping 172.22.0.3
 
 # cd $ONOS_ROOT && bazel run onos-local -- clean debug
