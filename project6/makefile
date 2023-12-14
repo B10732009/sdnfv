@@ -13,5 +13,3 @@ clean:
 	sudo ovs-vsctl del-br mybr
 	docker compose down
 
-test:
-	docker exec -it h4 ping 172.22.0.3
